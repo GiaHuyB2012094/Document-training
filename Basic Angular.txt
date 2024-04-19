@@ -1,0 +1,73 @@
+
+- form:
+	+ Reactive forms
+	+ Template driven forms
+
+- Lazy loading feature modules
+- RouterModule
+- Data binding 
+	+ component (ui logic)
+	+ view template (html)
+- When initialized then contructor run first, ngOnInit chạy và initialize
+các giá trị ban đầu trong component.
+- ngOnInit() will be called when all properties of this component initialied
+
+---------------------------------------------------------------------------
+- With attribute Disabled, Hidden, Checked --> string interpolation syntax
+is not working 
+(ex: disabled={{product.inStock > 0}} ==> [disbaled]="product.inStock > 0")
+- With attribute in html then need use property binding (ex: bind-value or [value])
+- Html attribure ( {{product.name}} ) represents the initial value and it
+does not change (aria-hidden, colspan, data-name.v.v) 
+- Html property represents the current value and it change
+- [attr.aria-hidden] => not error
+- Event binding (ex : (click)="incrementProduct()")
+---------------------------------------------------------------------------
+- Two way data binding is combine of property binding and event binding 
+(ex: ([ngModel])="textSearch" ) 
+=> to use "ngModel" we need to import "FormsModule"
+---------------------------------------------------------------------------
+- Directives 
+	+ Component directive
+	+ Attribute directive : ngStyle, ngClass
+	-> used to change the appearance or behavior of a DOM el.
+	+ Structural directive : ngIf, ngFor, ngSwitch 
+	-> used to add or remove a DOM el on the Website
+---------------------------------------------------------------------------
+- @Input() => pass val from parent comp to child comp
+- @Output() => pass val from child comp to parent comp 
+ (variable : EventEmitter<string> = new EvemtEmmiter<string>())
+---------------------------------------------------------------------------
+- [ngStyle]="{color: prod.is_in_inventory ? 'Green' : 'Red'}" => used to 
+set up dynamic CSS with TS expression.
+- [ngClass]="{'btn': true, 'btn-search': searchText, 
+'btn-search-disabled': !searchText}" ==> used to set up dynamic Class with
+Css and TS expression.
+---------------------------------------------------------------------------
+- Template Reference Variable
+	+ <input class"search-input" #searchInput/> => same useRef but nó 
+nằm ở template.
+-> nó lấy được DOM element, nó chứa tất cả val trong file component.ts 
+=> chúng ta có thể reference val trong file componet.ts của nó thông qua
+reference variable (ex: #searchInput )
+
+- @ViewChild   ( have 2 argument )
+	+ used to query and get a reference of the DOM el in comp. It returns
+the first matching el.
+	+ lấy nguyên cái DOM từ template đưa qua bên component(logic)
+	+ only query and get first matching element
+	+ @ViewChild('searchInput', {}) searchInputEl : ElementRef
+	+ để lấy giá trị của DOM el (searchInputEl) 
+	-> this.searchInputEl.nativeElement.value (này giống event.target.value)
+
+	+ Optional 2nd argument of @ViewChild()(đối số thứ 2 này có thể có hoặc ko)
+		1. read: 
+		2. static:
+			a. true (default) thì lặp tức nó gán DOM el cho biến
+			searchInputEl để lấy giá trị DOM khi cần
+			b. false sẽ ko lặp tức lấy giá trị mà phải đợi change
+			detection cycle
+	+ pass val between comp not relation can use @ViewChild.
+	
+- @ViewChildren (giống @ViewChild nhưng nó returns all the matching element)
+	+			

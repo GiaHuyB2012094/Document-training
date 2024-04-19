@@ -1,0 +1,51 @@
+1.what is typescript ?
+ts is a statically-typed superset of js that adds optional static typing to the language. allow dev to write
+js code with type annotations, used lager-scale projects.
+
+2.why use ts?
+- static typing: ts allows dev to specify types for variables, func parameters, return value, and more. this 
+helps catch errors during dev, such as type mismatches before runtime.
+- code maintainability: with type annotations, ts code easier to understand, improve code maintainability, especially
+in larger project or when working in teams.
+- IDE Support: providing features like code completion, type checking and refactoring tools.
+- Tooling: ts integrates
+- Compatibility: js code valid is also valid ts code
+- Enhanced Features: interfaces, enums, generics, and more.These features can improve code structure, readability, 
+and maintainability.
+
+3.ts
+- annotation
+- type interface
+- any type
+- func parameter
+- func return annotaiton
+- void func
+- object, arr
+- type alias -> declare multiple varibale have type in TYPE
+- optional property
+- intersection types -> combine type alias
+- unions -> a variable have multiple type
+- literal types	-> a variable have multiple value
+- tuples
+- enums
+- class properties Annotations
+- access modifiers 
+	+ public
+	+ private
+	+ protected
+- getters & setters
+	+ get -> return value
+	+ set -> setting value for variable
+
+- interface -> used to define the tructure of object, func and classes.
+-> implements with class
++ declaration merging
+
+- generics 
+- type narrowing
+	+ type guards -> typeof
+	+ the instanceof operator
+	+ intersection types
+- setup of ts
+	+ tsc -init
+
