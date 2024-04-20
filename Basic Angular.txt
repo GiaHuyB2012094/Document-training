@@ -70,4 +70,19 @@ the first matching el.
 	+ pass val between comp not relation can use @ViewChild.
 	
 - @ViewChildren (giống @ViewChild nhưng nó returns all the matching element)
-	+			
+----------------------------------------------------------------------------
+- ng-template
+- ng-container (không render trực tiếp trong DOM)
+	+ can hold structural DOM without add/remove element in DOM
+	+ can use 2 or more structural directive trong cùng 1 ng-container
+	+ nếu sử dụng *ngFor sẽ lặp và tạo ra các el và các el này để đừng wrap
+	bằng thẻ div chứ ko render trực tiếp ra el --> nếu sử dụng ng-container
+	thì sẽ render trực tiếp ra el đó lun ko có wrap bằng div
+- ng-content (used to render dynamically content that it is pass parent comp to
+child comp)
+	+ <ng-content select='cái class bên parent comp'><ng-content>
+- content projection là cái content nằm trong comp để convert thành <ng-content> 
+bên comp con
+- @ContentChild (lấy ref của DOM, Comp, Directive của content projection bên cha
+đưa qua bên con, nghia là bên con gọi thì sẽ lấy đc ref bên cha truyền qua)
+	+ (ex:  @ContentChild('paragrahp') paraEl: ElementRef)
