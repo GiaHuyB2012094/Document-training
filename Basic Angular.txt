@@ -70,6 +70,7 @@ the first matching el.
 	+ pass val between comp not relation can use @ViewChild.
 	
 - @ViewChildren (giống @ViewChild nhưng nó returns all the matching element)
+	+ @ViewChildren('para') paraEl : QueryList<ElementRef>  
 ----------------------------------------------------------------------------
 - ng-template
 - ng-container (không render trực tiếp trong DOM)
@@ -86,3 +87,35 @@ bên comp con
 - @ContentChild (lấy ref của DOM, Comp, Directive của content projection bên cha
 đưa qua bên con, nghia là bên con gọi thì sẽ lấy đc ref bên cha truyền qua)
 	+ (ex:  @ContentChild('paragrahp') paraEl: ElementRef)
+
+- if we can access a ref of a DOM el from the view template to that component class
+then we can use @ViewChild(), if we want access a ref of a DOM el from the parent 
+comp to child comp class we use @ContentChild()
+- @ContentChild === forwardRef(ReactJS), @ViewChild === useRef(ReactJS)
+- @ContentChildren ()
+	+ @ContentChildren('para') paraEl : QueryList<ElementRef> 
+-----------------------------------------------------------------------------
+- Comp Initialization:
+	+ contructor() => sẽ đc khởi tạo ngay sau khi this comp đc khởi tạo,
+	khi mà contructor đang called thì các val đc pass với @Input từ view 
+	template hay comp đều not updated
+	+ contructor => called thì sẽ lấy giá trị khởi tạo ban đầu
+	==> when angular app start -> first create and render root el comp ->
+	creates and render children and their children, form tree comp ->
+	when load angular app then check input properties, evaluate the data bindings
+	, expressions, render the projected content -> also removes comp from DOM
+	when it is longer needed -> event happen, using Angular lifecycle hooks.
+- LifeCycle Hooks:
+	ngOnChanges -> ngOnInit -> ngDoCheck -> ngAfterContentInit 
+	-> ngAfterContentChecked -> ngAfterViewInit -> ngAfterViewChecked 
+	-> ngDestroy
+- mõi hooks phải implement (ex: export class Demo implement OnChanges, OnInit{})
+- ngOnChanges: (giống useEffect(() => {},[data]) bên ReactJS)
+	+ nó đc gọi khi the comp rendered in the page (được started) and input properties đc khởi tạo
+	+ nó đc called lại mõi khi input properties change
+	+ nó còn có thể giúp chúng ta biết đc input properties current and previous bằng cách
+	(ex: ngOnChanges(changes: SimpleChanges){})) -> biến changes là object chứa current, previous value.
+	+ nó sẽ ko đc gọi lại với input properties có type array, object bởi vì giá trị biến thay đổi chứ
+	ref nó có thay đổi đâu mà đổi changes
+- ngOnInit: (giống useEffect(() => {},[]) bên ReactJS)
+- ngDoCheck: (giống useEffect(()=>{})) nó sẽ called mõi khi bắt cứ cái gì change trong comp
