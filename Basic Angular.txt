@@ -109,7 +109,10 @@ comp to child comp class we use @ContentChild()
 	ngOnChanges -> ngOnInit -> ngDoCheck -> ngAfterContentInit 
 	-> ngAfterContentChecked -> ngAfterViewInit -> ngAfterViewChecked 
 	-> ngDestroy
-- mõi hooks phải implement (ex: export class Demo implement OnChanges, OnInit{})
+	+ chạy theo dạng tree comp (comp cha chỉ start xong roài chạy dô child
+	comp, chứ ko chạy các hook methods của cha, chạy hết trong child comp
+	roài mới chạy ra mấy hook methods của con.
+- mõi hooks phải có implement trong class (ex: export class Demo implement OnChanges, OnInit{})
 - ngOnChanges: (giống useEffect(() => {},[data]) bên ReactJS)
 	+ nó đc gọi khi the comp rendered in the page (được started) and input properties đc khởi tạo
 	+ nó đc called lại mõi khi input properties change
@@ -119,9 +122,64 @@ comp to child comp class we use @ContentChild()
 	ref nó có thay đổi đâu mà đổi changes
 - ngOnInit: (giống useEffect(() => {},[]) bên ReactJS)
 - ngDoCheck: (giống useEffect(()=>{})) nó sẽ called mõi khi bắt cứ cái gì change trong comp
-- ngAfterContentInit:
-- ngAfterContentChecked:
-- ngAfterViewInit:
-- ngAfterViewChecked:
-- ngOnDestroy:
-- 
+- ngAfterContentInit: nó sẽ called mõi khi projected content được initialized
+(chỉ gọi 1 lần)
+- ngAfterContentChecked:nó sẽ called and updated after projected content the 
+has been checked
+- ngAfterViewInit: nó sẽ called mõi khi view has been initialized
+	+ called a comp, all the lifecycle hook methods of child comps, directives
+	đã completely processed and child comp completely ready.
+- ngAfterViewChecked: nó sẽ called and updated after view the has been checked
+- ngOnDestroy: 
+	+ nó xóa DOM, thực hiện các tác vụ liên quan đến giải phóng tài nguyên
+	và tránh rò rỉ bộ nhớ. 
+	+ hủy đăng ký Observables, tách trình xử lý sự kiện,...
+	+ called right before the comp is destroyed.
+-----------------------------------------------------------------------------
+- custom attribute directive:
+	+ tạo attribute directive (ng generate directive "highlight")
+	+ là 1 directive, sử dụng để thay đổi style cho nhiều comp, directive khác
+- Renderer2 : ( liên quan đến xử lý, tạo, sửa, xóa các el trong DOM )
+	+ allow us to manipulate(tương tác) the DOM without accessing the DOM el directly
+	providing a layer of abstraction between DOM el and comp code.
+	+ là 1 lớp cơ bản để thực hiện việc tạo, sửa đổi và xóa các phần tử DOM
+	+ nó cung cấp 1 abtract class giữ DOM và mã nguồn của comp
+	+ sử dụng để thực hiện : tạo phần tử, 
+	-> (ex: this.render.setStyle(this.element.nativeElement,'backgroundColor','red'))
+	+ các phthuc : createElement(name, namespace), createComment(value), 
+	appendChild(parent, newChild), setAttribute(el, name, value, namespace),
+	listen(target, eventName, callback), addClass(), removeClass()...
+- @HostListener : ( liên quan đến xử lý event của phần tử chủ (host) ) - decorator
+	-> (ex :   @HostListener('mouseenter') OnMouseEnter() {
+    			this.backgroundColor = 'white'; })
+- @HostBinding : ( liên quan đến binding properties của phần tử chủ (host)) - decorator
+	+ cho phép liên kết 1 thuộc tính của phẩn từ chủ với một thuộc tính của
+	directive or comp
+	+ được sử dụng để thay đổi attributes như class, style
+	-> (ex: @HostBinding('style.backgroundColor') backgroundColor : string = '#28282B';)
+	+ property binding with @HostBinding :
+	-> (ex: @HostBinding('value') inputValue: string = 'Hi there')
+- property binding in directives : 
+	+ truyền val của property từ view to directives.
+	+ (ex: [setBackgorund]="{backColor : 'red', textColor: 'white'}")
+	+ (ex: [setBackground] [textColor]="'black'")
+----------------------------------------------------------------------------
+- getter and setter:
+	+ getter :	
+		. it is a special method in a class that allows access val of private property
+		. lấy giá trị của property ko cần directly accessing it.
+	+ setter :
+		. it is a special method in a class that allows set val of private property
+		. to modify val of property ko cần directly assigning it
+- conditional attribute directive: 
+	+ (ex: [disabledProduct] = 'true' -> @Input() set disbledProduct(disable) {
+						if (disable) {this.renderer.addClass(...)}})
+---------------------------------------------------------------------------
+- view encapsulation :	
+	+ angular manages the styles of component to prevent affecting other parts
+	+ have three parts:
+		. Emulated (Default) --> sử dụng class  (_nghost,_ngcontent,...) hiddened style CSS
+		. Shadow DOM
+		. None
+
+	
