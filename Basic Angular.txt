@@ -119,3 +119,9 @@ comp to child comp class we use @ContentChild()
 	ref nó có thay đổi đâu mà đổi changes
 - ngOnInit: (giống useEffect(() => {},[]) bên ReactJS)
 - ngDoCheck: (giống useEffect(()=>{})) nó sẽ called mõi khi bắt cứ cái gì change trong comp
+- ngAfterContentInit:
+- ngAfterContentChecked:
+- ngAfterViewInit:
+- ngAfterViewChecked:
+- ngOnDestroy:
+- 
