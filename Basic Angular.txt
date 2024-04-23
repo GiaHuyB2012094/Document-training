@@ -181,5 +181,20 @@ has been checked
 		. Emulated (Default) --> sử dụng class  (_nghost,_ngcontent,...) hiddened style CSS
 		. Shadow DOM
 		. None
-
-	
+----------------------------------------------------------------------------
+- Dependency Injection:
+	+ is a technique (design pattern) using which a class receives its
+	dependencies from an external source rather than creating them itself
+	+ keeps the code flexible, testable, and mutable
+	+ classes can inherit external logic without knowing how to create it.
+	+ DI benefits comp, directives and pipes
+- Hierarchical Dependency Injection
+	+ khi chúng ta khai báo 1 method ở servicies thì khi chúng ta mún cho mấy
+	thằng nào use thì tao cho thằng parent (provide: serviceMethod đó) những
+	thằng con sẽ đc inject service từ cha cho mấy nó dùng chung và sài (service 1)
+	+ còn nếu 2 thằng dù có mqh là cha con thì vẫn sẽ tạo ra 2 service khác nhau
+	(service1 và service2) dù cả 2 đều có 1 chức năng.
+- Injecting service into another service:	
+	+ @Injectable() sử dụng thằng này cho các service cần inject để sử dụng
+	method của service kia
+- Injection token
