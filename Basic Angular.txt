@@ -198,3 +198,23 @@ has been checked
 	+ @Injectable() sử dụng thằng này cho các service cần inject để sử dụng
 	method của service kia
 - Injection token
+-------------------------------------------------------------------------------
+- Pipes: 
+	+ đc sd để transform or format data trc khi display in the view/template
+	+ take data as an input and tranforms or format data before that data displaying the template
+	
+	*lưu ý:
+		.not use pipes for filtering or sorting: because if not implemented
+		carefully then it can significal the perform of the app
+			
+- Pure pipe: 
+	+  nếu pipe đc sd trên val kiểu primitive như là string, number, boolean,...
+	-> thì khi val changes thì pure pipe cũng changes
+	+  nếu pipe đc sd trên val kiểu reference thì khi nếu có change trên val ref thì
+	cái change đó là pure change.
+	+  nếu input is of reference type, and property value changes and it reference has 
+	not changed, that change is not a pure change
+- Impure pipe:
+	+  nó changes liên tục dùng cho val đó có là type gì
+- Async pipe:
+	+ handle async of observable/promise

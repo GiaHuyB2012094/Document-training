@@ -10,6 +10,7 @@
 	+ a set of call back
 	+ trong call back có 3 method : next, error, complete
 	+ to use the Observable mà nó cần subcribe.
+	-> sử dụng unsubscribe() để cancel subcribe
 - Operators:
 	+ of() -> tạo nhanh Observable (ex: of(this.arr1, this.arr2, 23, 'hello'))
 	+ from() -> tạo nhanh Obsevable như chỉ với 1 argument
@@ -74,9 +75,49 @@
   				scan((acc, value) => acc + value, 0)
 			).subscribe(result => console.log(result));
 			// Output: 1, 3, 6, 10, 15 )
+	+ ajax() dùng để get api
+		. ajax().getJSON() -> để get the joson key of the response
+	+ mergeMap() 
 ----------------------------------------------------------------------------
 - Subject ( giống EventEmitters )
 	+ is special type of observable
----------------------------------------------------------------------------
 - Observable vs Subjects:
-	+ 
+	+ Observable:
+		. a stream of data that can emit multiple values overtime.
+		. are UNICAST by design -> nghĩa là mõi subcribe sẽ get mõi giá trị phụ thuộc Obs
+		-> (ex: obs = new Observable(obs => obs.next(Math.random())))
+			subcribe1 = obs.subcribe(data => console.log(data)) 
+			subcribe2 = obs.subcribe(data => console.log(data))
+		=> cả 2 cho ra 2 obs khác nhau
+	+ Subjects: 
+		. is a special type of observable, hoạt động như observable và observer
+		. are MULTICASTING, nghĩa là nó có thể emit val to multiple subcribes
+		-> (ex: obs = new Subject())
+			subcribe1 = obs.subcribe(data => console.log(data)) 
+			subcribe2 = obs.subcribe(data => console.log(data))
+			subject.next(Math.random());
+		=> cả 2 subcribe đều có chung 1 val
+		=> sử dụng thằng này khi mún share data giữ nhìu subcriber cùng 1 lúc
+		subject có thể phát ra giá trị đến nhìu subcriber đồng thời.
+	--> vd khi call api với ajax nếu default ajax sẽ là observable nên khi
+	chúng ta subcribe bao nhiêu lần thì observable nó sẽ call api lại bao nhiêu lần
+	nếu dùng subject thì nó chỉ lấy 1 observable đó nó emit val cho tất cả subcribe
+	nên chỉ call api 1 lần
+- BehaviourSubject - hiểu đơn giản thì nó là initial val cho subject -> nên sd
+- ReplaySubject - nó emit old val cho cho các subscribe
+	+ nghĩa là nó store previous data trong buffer roài nó emit data cho các subject 
+	subcribe sau nó
+	+ have 2 agrument: 
+		. bufferSize: giữ lại bao nhiêu val cuối mới emitted
+		. windowTime: thời gian để giữ val emitted
+- AsybcSubject - đơn giản nó sẽ trả cho giá trị mới nhất sau khi complete method called
+		. lưu ý chỉ tra về giá trị cho complete method gọi đầu tiên.
+----------------------------------------------------------------------------
+- Promise vs Observable:
+	Promise 				Oservable			|
+ - is native to  JS		| - of RxJs
+ - promise is eager, trả data lẹ| - lazy, nó chỉ emits data if đã subcriber cho obs
+ - emit a single val		| - emit multiple val
+ - have success, error methods	| - success, error, complete methods
+ - return asynchronous data	| - can async or synch tùy theo cách implement
+			
