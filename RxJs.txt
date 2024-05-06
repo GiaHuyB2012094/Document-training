@@ -38,6 +38,7 @@
 			).subscribe(result => console.log(result));) --> 0,1,2,3
 		==> make search feature
 	+ take(n) lấy ra được n giá trị đã emitted, ngừng việc lấy
+	+ takeUntil() -> tự động unsubcribing observable khi 1 comp bị destroy.
 	+ distinctUntilChanged () chỉ sẽ filter loại bỏ các giá trị bị trùng(giống)
 		. làm đảm bảo các giá trị là unique.
 		(ex: const source = from([1, 1, 2, 2, 3, 3, 3, 4, 5]);
@@ -111,7 +112,7 @@
 		. bufferSize: giữ lại bao nhiêu val cuối mới emitted
 		. windowTime: thời gian để giữ val emitted
 - AsybcSubject - đơn giản nó sẽ trả cho giá trị mới nhất sau khi complete method called
-		. lưu ý chỉ tra về giá trị cho complete method gọi đầu tiên.
+		. lưu ý chỉ trả về giá trị cho complete method gọi đầu tiên.
 ----------------------------------------------------------------------------
 - Promise vs Observable:
 	Promise 				Oservable			|

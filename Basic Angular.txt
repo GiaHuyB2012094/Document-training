@@ -218,3 +218,125 @@ has been checked
 	+  nó changes liên tục dùng cho val đó có là type gì
 - Async pipe:
 	+ handle async of observable/promise
+-----------------------------------------------------------------------------
+- Signals:
+	+ a wrapper around a val that can notify interested consumers when that
+	val changes.
+	+ sign()
+		to update the val of a signal, have three methods.
+		. set()
+		. update() - overrides the existing val, create a new val, does not change the existing val.
+		. mutate() - like update methods, can use it only on mutable values.
+	
+	+ computed() - to compute a value from a signal val.
+	+ effect() - whenever want to excute some code when the val of a signal changses.
+==> dùng trong thêm, sửa, xóa, show/hide a loading spinner 
+-----------------------------------------------------------------------------
+- Router and Route Guards:
+	+ use built-in angular @route
+	+ with forbidden route then use '**' format - must be defined '**' the end of routes.
+	
+- RouterLink Directive: (same the Link of RectJS)
+	+ it navigation to the Route
+	+ is an attribute directive and can pass additional parameters to it.
+- RouterLinkActive Directive: ()
+	+ (ex: <a [routerLink]="'Home'" [routerLinkActive]="'active'">HOME</a>)
+- RouterLinkActiveOptions Drirective:
+	+ When child applied then all parents also applied
+	+ [routerLinkActiveOptions]="{exact: true}"
+- Absolute Path and Relative Path:
+	+ Relative Path:
+		. is path use "/" the path is directly appended to root url 
+		. use "./" then move one level up and remove last one paths from the url.
+		. use "../" then move two level up and remove last two paths from the url.
+	+ Absolute Path:
+		. is the path donot use "/" is appended to the current url.
+- navigate():
+	+ (ex: router: Router = inject(Router)
+		this.router.navigate(["Course","About"])) -> http://localhost:4200/Course/About
+- Route Parameter:
+	(ex: [routerLink]="'/Course/' + course.id")
+	(ex: 	activeRouter: ActivatedRoute = inject(ActivatedRoute);
+		this.activeroute.snapshot.paramMap.get('id'))
+- Snapshot property:
+	+ nó chứa parameter của route.
+	+ nó sẽ ko change mõi khi route change
+- Route Parameter with Observable:
+- The paramMap Observable:
+	+ subcribe sẽ nhận được thông báo khi val changes.
+	+ vì vậy có thể lấy được latest val of parameter.
+- Using Query String in Route:
+	+ sử dụng (queryParams): 
+	+ 
+- Fragment Router
+	+ dùng dấu "#"
+	=> hay dùng để scroll to el
+- Route Guard
+	+ can be used to control whether the user can navigate to or away from a 
+	route based on a given condition.
+	+ nói chung là phân quyền đó
+	+ Type of Route Guard:
+		. Canactivate -> decides if a route can be accessed by a user or not.
+		. CanActivateChild -> decides if a user can leave or not, 
+ 		. CanDeactivate -> determines whether a child route can be activated or not. 
+		. Resolve -> delays the activation of the route until some tasks are complete
+		Can used to guard to pre-fetch the data from the backend API before activating the route.
+		. CanLoad -> prevents the loading of the Lazy LoderModule.
+- CanActivate Route Guard:
+	+ dùng để bảo vệ route từ unauthorized user, nghĩa là chỉ login roài mới dô mấy route đó đc
+- CanActivateChild Route Guard:
+	+ giống CanActivate nhưng apply lên tất cả route child (phân quyền ở route cha xong roài apply luôn các route)
+- CanDeactivate Route Guard:
+	+ dùng trong trường hợp khi người dùng đang nhập cái form xong nhưng chưa
+	submit cái người đó muốn navigate đên page khác app sẽ hiển thị là m ch có
+	submit form có chắc muốn đi đến chỗ khác ko.
+- Resolve Route Guard:
+	+ dùng khi mún load vài data trc khi navigate to a route.
+
+= Lazy loading:
+	+ 
+-----------------------------------------------------------------------------
+- Standalone Components:
+	+ là những comps ko cần phải là 1 phần của NgModule
+	+ ko phụ thuộc vào 1 module cụ thể nào cả
+	+ được dùng để tạo ra cái UI el tái sd, để shared cho nhiều project
+	+ (đặt trong "shared -> ui")
+	+ (ng g c input --inline-style --inline-template --standalone true)
+	
+- @ngModel:
+	+ Declarations: mảng này chứa components, directives, pipes, 
+	+ Poviders: chứa các services, dependency injection (DI)
+	+ Imports: dùng để chỉ định những modules khác chứa các component, pipes hay directive exported,
+	ngoài ra còn imports CommonModule, FormsModule, and ReactiveFormsModule.
+	
+------------------------------------------------------------------------------
+- Fetch Data From Backend:
+	+ step 1: import "HttpClientModule" vao app.module.ts
+	+ step 2: create 1 data service (
+		constructor(private http: HttpClient) { }
+  		getData() {return this.http.get('https://jsonplaceholder.typicode.com/users');})
+	+ step 3: get data from service (this.myData$ = this.myDataService.getData();)
+- Status code error:
+	400 Bad Request -> ko hiểu request do cú pháp sai
+	401 Unauthorized -> cần xác thực
+	403 Forbidden -> client ko có quyền truy cập vào nd chỉ định
+	404 Not Found
+- HTTP Interceptors:
+	+ nó là 1 middleware service that allow we intercept and modify HTTP req and res globally within your application
+	+ when app makes an HTTP req (using HttpClient), interceptor catches the req before it is sent to backend server
+	+ allow inspect and modify thq req header,body, or any other relevant information.	
+	+ all inspect and transform a server's response
+	+ can perform specific tasks, sush as adding authentication tokens, logging, or handling errors.
+	=> tóm lại có 4 trường hợp sd :
+		. Authentication: add tokens or headers to req
+		. Error Handling: handle errors globally
+		. Logging: log req and res
+		. Caching: cache res to improve performance.
+--------------------------------------------------------------------
+- CRUD: (Create, Read, Update, Delete)
+	+ combination of comps, services and data models.
+	+ data models represents the structure of the data 
+	+ services performing CRUD operations on that data
+	+ comps displaying data to the user and UI
+- Dynamic Comps:
+	
