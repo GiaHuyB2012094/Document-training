@@ -1,4 +1,3 @@
-
 - form:
 	+ Reactive forms
 	+ Template driven forms
@@ -73,6 +72,7 @@ the first matching el.
 	+ @ViewChildren('para') paraEl : QueryList<ElementRef>  
 ----------------------------------------------------------------------------
 - ng-template
+	+ sử dụng kết hợp với *ngIf
 - ng-container (không render trực tiếp trong DOM)
 	+ can hold structural DOM without add/remove element in DOM
 	+ can use 2 or more structural directive trong cùng 1 ng-container

@@ -63,6 +63,7 @@
   				console.log(`With concatMap: ${val}`));)	
 	+ takeUntil() cho phép bạn complete an Observable khi mà another Observable
 		emits a value
+		-> this pattern ensures that subscriptions are automatically unsubcribed when comps is destroyed.
 		(ex : 	const source = interval(1000);
 			const stopper = timer(5000);
 			source.pipe(
